@@ -155,6 +155,14 @@ public:
 	// other type shortcuts
 	//
 	
+	bool get(const string& key)
+	{
+		ofxOscMessage m;
+		bool get_latest = true;
+		return get(key, m, get_latest);
+	}
+	
+	
 	bool get(const string& key, float &value, bool get_latest = false)
 	{
 		ofxOscMessage m;
@@ -353,19 +361,6 @@ protected:
 
 	void onUpdate(ofEventArgs&)
 	{
-		{
-			std::tr1::unordered_map<string, MessageList>::iterator it = keyValue.begin();
-			while (it != keyValue.end())
-			{
-				if (keyValue[(*it).first].itor != (*it).second.msgs.begin())
-				{
-					ofLogWarning("ofxKeyValueOSC") << "iterator error detected: " << (*it).first;
-				}
-				
-				it++;
-			}
-		}
-		
 		clear();
 		
 		ofxOscMessage m;
